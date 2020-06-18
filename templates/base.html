@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Covtraq</title>
+        <link href="{% static 'css/bulma.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    </head>
+<body>  
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/home/">
+            <p class="is-title is-size-4">+</p>
+          </a>
+      
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="/home/">
+              Home
+            </a>
+
+            <a class="navbar-item" href="/patients/">
+                Patients
+            </a>
+
+            <a class="navbar-item" href="/reports/">
+                Reports
+            </a>
+      
+             </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                 {% if request.user.is_authenticated %}
+                    {{ request.user.username}}
+                    <a class="button is danger" href="/accounts/logout/">
+                      <strong>Logout</strong</a>
+                  {% else %}
+                      <a class="button is-primary" href="/signup/"> 
+                        <strong>Sign up</strong>
+                      </a>
+                      <a class="button is-light" href="/accounts/login/">
+                         Log in
+                      </a>
+                  {% endif %}               
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <div class="main-container">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+    
+    <p class="subtitle is-5 copyrights">Copyrights by CovTraq LTD 2020-2021.</p>
+</body>
+</html>

@@ -1,0 +1,45 @@
+.navbar{
+    border-bottom:1px solid rgb(0, 0, 0);
+}
+
+.main-container{
+    height:600px;
+    width:100%;
+}
+
+
+.home-title{
+    margin:0 auto;
+    width:37%;
+}
+
+.home-subtitle{
+    margin:0 auto;
+    width:20%;
+}
+
+.copyrights{
+    margin-left:20px;
+}
+
+.main-image{
+    width: 1000px;
+    margin-left: 150px;
+}
+
+
+.main-image img{
+    width: 1000px;
+    height:450px;
+}
+
+
+.title-patients{
+    margin:20px 10px 10px 20px;
+    padding-bottom: 20px;
+    border-bottom:1px solid greenyellow;
+}
+
+.title-patients .button{
+    float:right;
+}

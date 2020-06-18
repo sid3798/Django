@@ -1,0 +1,109 @@
+<!-- templates/base.html-->
+{% extends 'base.html' %}
+{% block content %}
+<div class="title-patients">
+    
+    <span class="title is-4"># Patients</span>
+    <button class="button is-primary is-rounded add-patient">Add</button>
+</div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th><abbr title="Played">Age</abbr></th>
+        <th><abbr title="Won">Diagnoses</abbr></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for patient in list_of_patients %}
+        <tr>
+            
+            <td>{{patient.name}}</td>
+            <td>{{patient.age}}</td>
+            <td>{{patient.diagnoses}}</td>
+          </tr>
+        {% endfor %}
+     
+    </tbody>
+  </table>
+
+
+<div class="modal add-patient-modal">
+<div class="modal-background"></div>
+<div class="modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Add Patient</p>
+    <button class="delete close-add-patient" aria-label="close"></button>
+  </header>
+  <section class="modal-card-body">
+    <form method="POST" action="#">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input patient_name" type="text" placeholder="Name" name="patient_name">
+            </div>
+          </div>
+          
+          <div class="field">
+            <label class="label">Age</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-success patient_age" type="number" placeholder="Age" value="" name="patient_age">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </div>
+                 
+          <div class="field">
+            <label class="label">Diagnoses</label>
+            <div class="control">
+              <textarea class="textarea patient_diagnoses" placeholder="Diagnoses" name=" "></textarea>
+            </div>
+          </div>
+    </form>
+  </section>
+  <footer class="modal-card-foot">
+    <button class="button is-success add-patient-submit">Save changes</button>
+    <button class="button close-add-patient">Cancel</button>
+  </footer>
+
+<script>
+      $(document).ready(function(){
+          $(".add-patient").click(function(){
+              $(".add-patient-modal").toggleClass("is-active");
+          });
+
+          $(".close-add-patient").click(function(){
+            $(".add-patient-modal").removeClass("is-active");
+          });
+
+          $(".add-patient-submit").click(function()
+          {
+            var name = $(".patient_name").val()
+            var age = $(".patient_age").val()
+            var diagnoses = $(".patient_diagnoses").val()
+              
+          $.ajax({
+                type: "POST",
+                url: '/add_patient/',
+                dataType: 'json',
+                data: {
+                    name:name,
+                    age:age,
+                    diagnoses:diagnoses,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success: function(data){
+                                      
+                }           
+                });      
+          });  
+      })
+  </script>  
+{% endblock %} 
